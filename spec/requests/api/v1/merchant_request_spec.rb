@@ -76,6 +76,20 @@ RSpec.describe 'Merchants API' do
       expect(data['data'][0]['attributes']['name']).to eq(@merchant3.name)
       expect(data['data'][0]['attributes']['id']).to eq(@merchant3.id)
     end
+
+    it 'finds a random merchant' do
+      get '/api/v1/merchants/random' do
+      
+      expect(response).to be_succsessful
+
+      data = JSON.parse(response.body)
+
+      expect(data['data'].count).to eq(1)
+      expect(data['data'][0]['attributes'].count).to eq(2)
+      expect(data['data'][0]['attributes']).to have_key('id')
+      expect(data['data'][0]['attributes']).to have_key('name')
+      end
+    end
   end
 
   context 'finds multiple merchants' do
