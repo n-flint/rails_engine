@@ -38,5 +38,17 @@ RSpec.describe 'Merchants API' do
     data = JSON.parse(response.body)
 
     expect(data['data'][0]['attributes']['name']).to eq(@merchant4.name)
+
+  end
+
+  it 'finds a single merchant by id' do
+    get '/api/v1/merchants/find?id=1'
+
+    expect(response).to be_successful
+
+    data = JSON.parse(response.body)
+
+    expect(data['data'][0]['attributes']['name']).to eq(@merchant1.name)
+    expect(data['data'][0]['attributes']['id']).to eq(@merchant1.id)
   end
 end
