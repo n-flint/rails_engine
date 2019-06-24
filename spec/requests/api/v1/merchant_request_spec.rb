@@ -110,7 +110,16 @@ RSpec.describe 'Merchants API' do
       expect(data['data'][1]['attributes']['id']).to eq(@merchant3.id)
     end
 
-  end
+    it 'can find multiple merchants by name' do
+      get '/api/v1/merchants/find_all?id=1'
 
-  
+      expect(response).to be_successful
+
+      data = JSON.parse(response.body)
+
+      expect(data['data'].count).to eq(1)
+      expect(data['data'][0]['attributes']['name']).to eq(@merchant1.name)
+      expect(data['data'][0]['attributes']['id']).to eq(@merchant1.id)
+    end
+  end
 end
