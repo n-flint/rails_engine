@@ -32,5 +32,19 @@ RSpec.describe 'Merchants API' do
       expect(data['data'][1]['attributes']['name']).to eq(@item2.name)
     end
 
+    it 'can return a merchants invoices' do
+      get "/api/v1/merchants/#{@merchant1.id}/invoices"
+
+      expect(response).to be_successful
+
+      data = JSON.parse(response.body)
+
+      expect(data['data'].count).to eq(2)
+      expect(data['data'][0]['id'].to_i).to eq(@invoice1.id)
+      expect(data['data'][0]['attributes']['status']).to eq(@invoice1.status)
+      expect(data['data'][1]['id'].to_i).to eq(@invoice2.id)
+      expect(data['data'][1]['attributes']['status']).to eq(@invoice2.status)
+    end
+
   end
 end
