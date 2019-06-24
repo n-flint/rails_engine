@@ -11,6 +11,6 @@ RSpec.describe 'Merchants API' do
 
     data = JSON.parse(response.body)
 
-    expect(data.count).to eq(3)
+    expect(data['data'].count).to eq(3)
   end
 end
