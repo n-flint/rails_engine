@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe 'Merchants API' do
   before :each do
     @merchant1 = Merchant.create(id: 1, name: 'Trevor')
-    @merchant2= Merchant.create(name: 'Noah', created_at: '2019-06-23 14:53:59 UTC', updated_at: '2019-06-24 14:53:59 UTC' )
-    @merchant3 = Merchant.create(name: 'Earl')
+    @merchant2= Merchant.create(name: 'Noah', created_at: '2019-06-23 14:53:59 UTC')
+    @merchant3 = Merchant.create(name: 'Earl', updated_at: '2019-04-24 12:53:59 UTC')
     @merchant4 = Merchant.create(name: 'Schroeder-Jerde')
   end
 
@@ -61,5 +61,16 @@ RSpec.describe 'Merchants API' do
 
     expect(data['data'][0]['attributes']['name']).to eq(@merchant2.name)
     expect(data['data'][0]['attributes']['id']).to eq(@merchant2.id)
+  end
+
+  it 'finds a single merchant by updated_at' do
+    get '/api/v1/merchants/find?updated_at=2019-04-24-12:53:59-UTC'
+
+    expect(response).to be_successful
+
+    data = JSON.parse(response.body)
+
+    expect(data['data'][0]['attributes']['name']).to eq(@merchant3.name)
+    expect(data['data'][0]['attributes']['id']).to eq(@merchant3.id)
   end
 end
