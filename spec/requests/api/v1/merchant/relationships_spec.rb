@@ -20,11 +20,16 @@ RSpec.describe 'Merchants API' do
     it 'can return a merchants items' do
       get "/api/v1/merchants/#{@merchant1.id}/items"
 
-      expect(response).to be_succsessful
+      expect(response).to be_successful
 
       data = JSON.parse(response.body)
 
-      expect(data['data']['items'].count).to eq(2)
+      expect(data['data'].count).to eq(2)
+      expect(data['data'][0]['id'].to_i).to eq(@item1.id)
+      expect(data['data'][0]['attributes']['name']).to eq(@item1.name)
+      expect(data['data'][0]['attributes']['description']).to eq(@item1.description)
+      expect(data['data'][0]['attributes']['unit_price']).to eq(@item1.unit_price)
+      expect(data['data'][1]['attributes']['name']).to eq(@item2.name)
     end
 
   end
