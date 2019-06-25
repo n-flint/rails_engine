@@ -15,5 +15,15 @@ RSpec.describe 'Customers API' do
       expect(data['data']['attributes']['first_name']).to eq(@customer1.first_name)
       expect(data['data']['attributes']['last_name']).to eq(@customer1.last_name)
     end
+
+    it 'finds a single customer by id' do
+      get "/api/v1/customers/find/?id=#{@customer1.id}"
+
+      data = JSON.parse(response.body)
+
+      expect(data['data'][0]['attributes']['id']).to eq(@customer1.id)
+      expect(data['data'][0]['attributes']['first_name']).to eq(@customer1.first_name)
+      expect(data['data'][0]['attributes']['last_name']).to eq(@customer1.last_name)
+    end
   end
 end
