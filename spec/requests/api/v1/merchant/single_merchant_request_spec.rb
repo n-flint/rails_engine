@@ -9,16 +9,6 @@ RSpec.describe 'Merchants API' do
       @merchant4 = Merchant.create(name: 'Schroeder-Jerde')
     end
 
-    it 'sends a list of merchants' do
-      get '/api/v1/merchants.json' 
-
-      expect(response).to be_successful
-
-      data = JSON.parse(response.body)
-
-      expect(data['data'].count).to eq(4)
-    end
-
     it 'sends a single merchant' do
       get '/api/v1/merchants/1.json'
 
