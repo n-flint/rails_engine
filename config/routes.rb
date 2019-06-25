@@ -23,8 +23,9 @@ Rails.application.routes.draw do
 
       namespace :transactions do
         get '/find', to: 'search#show'
+        get '/find_all', to: 'search#index'
       end
-      resources :transactions, only: [:show]
+      resources :transactions, only: [:index, :show]
     end
   end
 end
