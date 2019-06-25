@@ -67,5 +67,19 @@ RSpec.describe 'Customers API' do
       expect(data['data'][0]['attributes']['first_name']).to eq(@customer4.first_name)
       expect(data['data'][0]['attributes']['last_name']).to eq(@customer4.last_name)
     end
+
+    it 'finds a random customer' do
+      get '/api/v1/customers/random' do
+        expect(response).to be_succsessful
+        
+        data = JSON.parse(response.body)
+        # pry not hitting here?
+        expect(data['data'].count).to eq(1)
+        expect(data['data'][0]['attributes'].count).to eq(2)
+        expect(data['data'][0]['attributes']).to have_key('id')
+        expect(data['data'][0]['attributes']).to have_key('first_name')
+        expect(data['data'][0]['attributes']).to have_key('last_name')
+      end
+    end
   end
 end
