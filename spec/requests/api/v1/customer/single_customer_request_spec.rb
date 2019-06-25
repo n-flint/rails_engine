@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Customers API' do
-  context 'finds a single customer' do
+  context 'single customer' do
     before :each do
       @customer1 = Customer.create(first_name: 'Bobby', last_name: 'Kelly')
       @customer2 = Customer.create(first_name: 'Bert', last_name: 'Kreischer')

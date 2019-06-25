@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Transactions API' do
-  context 'finds a single transaction' do
+  context 'single transaction' do
     before :each do
       @customer1 = Customer.create(first_name: 'Bill', last_name: 'Burr')
       @merchant1 = Merchant.create(name: 'Afroman') 
@@ -24,5 +24,18 @@ RSpec.describe 'Transactions API' do
       expect(data['data']['attributes']['credit_card_expiration_date']).to eq('2019-05-12')
       expect(data['data']['attributes']['result']).to eq(@transaction1.result)
     end
+
+      it 'finds a single transaction by id' do
+        get "/api/v1/transactions/find?id=#{@transaction1.id}"
+
+        expect(response).to be_successful
+
+        data = JSON.parse(response.body)
+
+        expect(data['data']['id'].to_i).to eq(@transaction1.id)
+        expect(data['data']['attributes']['credit_card_number']).to eq(@transaction1.credit_card_number)
+        expect(data['data']['attributes']['credit_card_expiration_date']).to eq('2019-05-12')
+        expect(data['data']['attributes']['result']).to eq(@transaction1.result)
+      end
   end
 end
