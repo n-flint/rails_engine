@@ -27,7 +27,10 @@ RSpec.describe 'Customers API' do
 
       data = JSON.parse(response.body)
 
- 
+      expect(data['data'].count).to eq(1)
+      expect(data['data'][0]['attributes']['id']).to eq(@customer1.id)
+      expect(data['data'][0]['attributes']['first_name']).to eq(@customer1.first_name)
+      expect(data['data'][0]['attributes']['last_name']).to eq(@customer1.last_name)
     end
 
     it 'can find multiple customers by first name' do
