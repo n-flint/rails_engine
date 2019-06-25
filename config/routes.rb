@@ -16,14 +16,8 @@ Rails.application.routes.draw do
         get '/find', to: 'search#show'
       end
       
-      resources :customers, only: [:show]
+      resources :customers, only: [:index, :show]
     end
   end
-
-  # namespace :api do
-  #   namespace :v1 do
-  #     resources :customers, only: [:show]
-  #   end
-  # end
 end
 
