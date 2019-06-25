@@ -66,17 +66,15 @@ RSpec.describe 'Merchants API' do
     end
 
     it 'finds a random merchant' do
-      get '/api/v1/merchants/random' do
-      # pry not hitting here?
-      expect(response).to be_succsessful
+      get '/api/v1/merchants/random'
+
+      expect(response).to be_successful
 
       data = JSON.parse(response.body)
       
-      expect(data['data'].count).to eq(1)
-      expect(data['data'][0]['attributes'].count).to eq(2)
-      expect(data['data'][0]['attributes']).to have_key('id')
-      expect(data['data'][0]['attributes']).to have_key('name')
-      end
+      expect(data['data']['attributes'].count).to eq(2)
+      expect(data['data']['attributes']).to have_key('id')
+      expect(data['data']['attributes']).to have_key('name')
     end
   end
 end
