@@ -6,6 +6,6 @@ class Api::V1::Customers::SearchController < ApplicationController
 
   private
     def customer_params
-      params.permit(:id, :first_name)
+      params.permit(:id, :first_name, :last_name)
     end
 end
