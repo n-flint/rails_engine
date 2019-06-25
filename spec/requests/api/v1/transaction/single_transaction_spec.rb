@@ -13,7 +13,7 @@ RSpec.describe 'Transactions API' do
     end
 
     it 'sends a single transaction' do
-      get '/api/v1/transactions/1.json'
+      get "/api/v1/transactions/#{@transaction1.id}.json"
 
       expect(response).to be_successful
 
