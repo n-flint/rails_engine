@@ -10,6 +10,7 @@ RSpec.describe 'Transactions API' do
       @invoice2 = Invoice.create(status: 'shipped', customer: @customer1, merchant: @merchant1)
 
       @transaction1 = Transaction.create(invoice: @invoice1, credit_card_number: '12341234123412334', credit_card_expiration_date: '2019-05-12', result: 'success')
+      @transaction2 = Transaction.create(invoice: @invoice2, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success')
     end
 
     it 'sends a single transaction' do
