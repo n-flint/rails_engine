@@ -80,5 +80,21 @@ RSpec.describe 'Customers API' do
       expect(data['data'][1]['attributes']['first_name']).to eq(@customer3.first_name)
       expect(data['data'][1]['attributes']['last_name']).to eq(@customer3.last_name)
     end
+
+    it 'can find multiple customers by updated_at' do
+      get '/api/v1/customers/find_all?updated_at=2019-06-25-14:53:59-UTC'
+
+      expect(response).to be_successful
+
+      data = JSON.parse(response.body)
+
+      expect(data['data'].count).to eq(2)
+      expect(data['data'][0]['attributes']['id']).to eq(@customer4.id)
+      expect(data['data'][0]['attributes']['first_name']).to eq(@customer4.first_name)
+      expect(data['data'][0]['attributes']['last_name']).to eq(@customer4.last_name)
+      expect(data['data'][1]['attributes']['id']).to eq(@customer5.id)
+      expect(data['data'][1]['attributes']['first_name']).to eq(@customer5.first_name)
+      expect(data['data'][1]['attributes']['last_name']).to eq(@customer5.last_name)
+    end
   end
 end
