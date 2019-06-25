@@ -18,5 +18,19 @@ RSpec.describe 'Customers API' do
 
       expect(data['data'].count).to eq(4)
     end
+
+    it 'can find multiple customers by id' do
+      get "/api/v1/customers/find_all?id=#{@customer1.id}"
+
+      expect(response).to be_successful
+
+      data = JSON.parse(response.body)
+      require 'pry'; binding.pry
+
+      expect(data['data'].count).to eq(1)
+      expect(data['data'][0]['attributes']['id']).to eq(@customer1.id)
+      expect(data['data'][0]['attributes']['first_name']).to eq(@customer1.first_name)
+      expect(data['data'][0]['attributes']['last_name']).to eq(@customer1.last_name)
+    end
   end
 end
