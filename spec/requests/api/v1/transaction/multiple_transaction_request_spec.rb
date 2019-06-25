@@ -50,5 +50,17 @@ RSpec.describe 'Transactions Api' do
       expect(data['data'][0]['attributes']['credit_card_number']).to eq(@transaction3.credit_card_number)
       expect(data['data'][0]['attributes']['credit_card_expiration_date']).to eq('2019-04-10')
     end
+
+    it 'can find multiple transactions by credit card number' do
+      get "/api/v1/transactions/find_all?credit_card_expiration_date=#{@transaction4.credit_card_expiration_date}"
+
+      expect(response).to be_successful
+
+      data = JSON.parse(response.body)
+
+      expect(data['data'][0]['attributes']['id']).to eq(@transaction4.id)
+      expect(data['data'][0]['attributes']['credit_card_number']).to eq(@transaction4.credit_card_number)
+      expect(data['data'][0]['attributes']['credit_card_expiration_date']).to eq('2019-04-09')
+    end
   end
 end
