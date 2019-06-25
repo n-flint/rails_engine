@@ -6,6 +6,7 @@ RSpec.describe 'Customers API' do
       @customer1 = Customer.create(first_name: 'Bobby', last_name: 'Kelly')
       @customer2 = Customer.create(first_name: 'Bert', last_name: 'Kreischer')
       @customer3 = Customer.create(first_name: 'Bill', last_name: 'Bull', created_at: '2019-06-23 14:53:59 UTC')
+      @customer4 = Customer.create(first_name: 'Bill', last_name: 'Bull', updated_at: '2019-06-25 14:53:59 UTC')
     end
     it 'sends a single customer' do
       get "/api/v1/customers/#{@customer1.id}.json"
@@ -55,6 +56,16 @@ RSpec.describe 'Customers API' do
       expect(data['data'][0]['attributes']['id']).to eq(@customer3.id)
       expect(data['data'][0]['attributes']['first_name']).to eq(@customer3.first_name)
       expect(data['data'][0]['attributes']['last_name']).to eq(@customer3.last_name)
+    end
+
+    it 'finds a single customer by updated_at' do
+      get "/api/v1/customers/find/?updated_at=#{@customer4.updated_at}"
+
+      data = JSON.parse(response.body)
+
+      expect(data['data'][0]['attributes']['id']).to eq(@customer4.id)
+      expect(data['data'][0]['attributes']['first_name']).to eq(@customer4.first_name)
+      expect(data['data'][0]['attributes']['last_name']).to eq(@customer4.last_name)
     end
   end
 end
