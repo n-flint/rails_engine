@@ -7,14 +7,13 @@ RSpec.describe 'Merchants API' do
       @merchant1 = Merchant.create(name: 'Afroman') 
       @merchant2= Merchant.create(name: 'Noah')
 
-      @invoice1 = Invoice.create(status: 'shipped', customer: @customer1)
-      @invoice2 = Invoice.create(status: 'shipped', customer: @customer2)
+      @invoice1 = Invoice.create(status: 'shipped', customer: @customer1, merchant: @merchant1)
+      @invoice2 = Invoice.create(status: 'shipped', customer: @customer1, merchant: @merchant1)
 
       @item1 = Item.create(name: 'item 1', description:'item 1 description', unit_price: '10000')
       @item2 = Item.create(name: 'item 2', description:'item 2 description', unit_price: '20000')
 
       @merchant1.items << [@item1, @item2]
-      @merchant1.invoices << [@invoice1, @invoice2]
     end
 
     it 'can return a merchants items' do
