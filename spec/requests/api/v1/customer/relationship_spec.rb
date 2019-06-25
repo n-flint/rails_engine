@@ -33,5 +33,24 @@ RSpec.describe 'Customers API' do
       expect(data['data'][1]['id'].to_i).to eq(@invoice2.id)
       expect(data['data'][1]['attributes']['status']).to eq(@invoice2.status)
     end
+
+    it 'can return a customers transactions' do
+      get "/api/v1/customers/#{@customer1.id}/transactions" 
+
+      expect(response).to be_successful
+
+      data = JSON.parse(response.body)
+
+      expect(data['data'].count).to eq(2)
+      expect(data['data'][0]['id'].to_i).to eq(@transaction1.id)
+      expect(data['data'][0]['attributes']['credit_card_number']).to eq(@transaction1.credit_card_number)
+      expect(data['data'][0]['attributes']['credit_card_expiration_date']).to eq(@transaction1.credit_card_expiration_date)
+      expect(data['data'][0]['attributes']['status']).to eq(@transaction1.status)
+
+      expect(data['data'][1]['id'].to_i).to eq(@transaction2.id)
+      expect(data['data'][1]['attributes']['credit_card_number']).to eq(@invoice2.credit_card_number)
+      expect(data['data'][1]['attributes']['credit_card_expiration_date']).to eq(@transaction2.credit_card_expiration_date)
+      expect(data['data'][1]['attributes']['status']).to eq(@transaction2.status)
+    end
   end
 end
