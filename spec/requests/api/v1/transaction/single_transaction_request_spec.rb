@@ -38,5 +38,16 @@ RSpec.describe 'Transactions API' do
       expect(data['data'][0]['attributes']['credit_card_expiration_date']).to eq('2019-05-12')
       expect(data['data'][0]['attributes']['result']).to eq(@transaction1.result)
     end
+    it 'finds a random transaction' do
+      get "/api/v1/transactions/random"
+
+      expect(response).to be_successful
+
+      data = JSON.parse(response.body)
+
+      expect(data['data']['attributes']).to have_key('credit_card_number')
+      expect(data['data']['attributes']).to have_key('credit_card_expiration_date')
+      expect(data['data']['attributes']).to have_key('result')
+    end
   end
 end
