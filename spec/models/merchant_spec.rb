@@ -22,5 +22,4 @@ RSpec.describe Merchant, type: :model do
       expect(random.class).to eq(Merchant)
     end
   end
-
 end
