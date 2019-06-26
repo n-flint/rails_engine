@@ -4,4 +4,9 @@ class Transaction < ApplicationRecord
                         :credit_card_expiration_date,
                         :result
   belongs_to :invoice
+
+  def self.random
+    random_id = all.pluck(:id).sample
+    Transaction.find(random_id)
+  end
 end

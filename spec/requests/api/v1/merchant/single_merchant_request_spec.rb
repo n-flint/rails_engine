@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Merchants API' do
-  context 'finds a single merchant' do
+  context 'single merchant' do
     before :each do
       @merchant1 = Merchant.create(id: 1, name: 'Trevor')
       @merchant2= Merchant.create(name: 'Noah', created_at: '2019-06-23 14:53:59 UTC')
@@ -21,6 +21,17 @@ RSpec.describe 'Merchants API' do
       expect(data['data']['attributes']['name']).to eq(@merchant1.name)
     end
 
+    it 'finds a single merchant by id' do
+      get '/api/v1/merchants/find?id=1'
+
+      expect(response).to be_successful
+
+      data = JSON.parse(response.body)
+      
+      expect(data['data'][0]['attributes']['name']).to eq(@merchant1.name)
+      expect(data['data'][0]['attributes']['id']).to eq(@merchant1.id)
+    end
+
     it 'finds a single merchant by name' do
       get '/api/v1/merchants/find?name=Schroeder-Jerde'
 
@@ -30,17 +41,6 @@ RSpec.describe 'Merchants API' do
 
       expect(data['data'][0]['attributes']['name']).to eq(@merchant4.name)
       expect(data['data'][0]['attributes']['id']).to eq(@merchant4.id)
-    end
-
-    it 'finds a single merchant by id' do
-      get '/api/v1/merchants/find?id=1'
-
-      expect(response).to be_successful
-
-      data = JSON.parse(response.body)
-
-      expect(data['data'][0]['attributes']['name']).to eq(@merchant1.name)
-      expect(data['data'][0]['attributes']['id']).to eq(@merchant1.id)
     end
 
     it 'finds a single merchant by created_at' do
@@ -66,17 +66,15 @@ RSpec.describe 'Merchants API' do
     end
 
     it 'finds a random merchant' do
-      get '/api/v1/merchants/random' do
-      # pry not hitting here?
-      expect(response).to be_succsessful
+      get '/api/v1/merchants/random'
+
+      expect(response).to be_successful
 
       data = JSON.parse(response.body)
       
-      expect(data['data'].count).to eq(1)
-      expect(data['data'][0]['attributes'].count).to eq(2)
-      expect(data['data'][0]['attributes']).to have_key('id')
-      expect(data['data'][0]['attributes']).to have_key('name')
-      end
+      expect(data['data']['attributes'].count).to eq(2)
+      expect(data['data']['attributes']).to have_key('id')
+      expect(data['data']['attributes']).to have_key('name')
     end
   end
 end
