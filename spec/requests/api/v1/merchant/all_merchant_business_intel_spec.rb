@@ -22,6 +22,18 @@ RSpec.describe 'Merchant Business Intelligence' do
       @invoice7 = Invoice.create(status: 'shipped', customer: @customer1, merchant: @merchant4)
       @invoice8 = Invoice.create(status: 'shipped', customer: @customer1, merchant: @merchant4)
 
+      @item1 = Item.create(name: 'item 1', description: 'item 1 description', unit_price: 10000)
+      @item2 = Item.create(name: 'item 2', description: 'item 2 description', unit_price: 10000)
+
+      @item3 = Item.create(name: 'item 3', description: 'item 3 description', unit_price: 20000)
+      @item4 = Item.create(name: 'item 4', description: 'item 4 description', unit_price: 20000)
+
+      @item5 = Item.create(name: 'item 5', description: 'item 5 description', unit_price: 30000)
+      @item6 = Item.create(name: 'item 6', description: 'item 6 description', unit_price: 30000)
+
+      @item7 = Item.create(name: 'item 7', description: 'item 7 description', unit_price: 40000)
+      @item8 = Item.create(name: 'item 8', description: 'item 8 description', unit_price: 40000)
+
 
       @transaction1 = Transaction.create(invoice: @invoice1, credit_card_number: '12341234123412334', credit_card_expiration_date: '2019-05-12', result: 'success')
       @transaction2 = Transaction.create(invoice: @invoice2, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success')
@@ -34,18 +46,6 @@ RSpec.describe 'Merchant Business Intelligence' do
 
       @transaction7 = Transaction.create(invoice: @invoice7, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success')
       @transaction8 = Transaction.create(invoice: @invoice8, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success')
-
-      @item1 = Item.create(name: 'item 1', description: 'item 1 description', unit_price: 10000)
-      @item2 = Item.create(name: 'item 2', description: 'item 2 description', unit_price: 10000)
-
-      @item3 = Item.create(name: 'item 3', description: 'item 3 description', unit_price: 20000)
-      @item4 = Item.create(name: 'item 4', description: 'item 4 description', unit_price: 20000)
-
-      @item5 = Item.create(name: 'item 5', description: 'item 5 description', unit_price: 30000)
-      @item6 = Item.create(name: 'item 6', description: 'item 6 description', unit_price: 30000)
-
-      @item7 = Item.create(name: 'item 7', description: 'item 7 description', unit_price: 40000)
-      @item8 = Item.create(name: 'item 8', description: 'item 8 description', unit_price: 40000)
     end
 
     it 'merchants with the most revenue with limit params' do
@@ -55,7 +55,7 @@ RSpec.describe 'Merchant Business Intelligence' do
       expect(response.status).to be_successful
 
       data = JSON.parse(response.body)
-      
+
       expect(data['data'].count).to eq(2)
       expect(data['data'][0]['id']).to eq(@merchant4.id)
       expect(data['data'][0]['name']).to eq(@merchant4.name)
