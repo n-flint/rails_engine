@@ -27,7 +27,7 @@ RSpec.describe 'Transactions API' do
     end
 
     it 'finds a single transaction by id' do
-      get "/api/v1/transactions/find?id=#{@transaction1.id}"
+      get "/api/v1/transactions/find?id=#{@transaction1.id}.json"
 
       expect(response).to be_successful
 
@@ -38,6 +38,7 @@ RSpec.describe 'Transactions API' do
       expect(data['data'][0]['attributes']['credit_card_expiration_date']).to eq('2019-05-12')
       expect(data['data'][0]['attributes']['result']).to eq(@transaction1.result)
     end
+
     it 'finds a random transaction' do
       get "/api/v1/transactions/random"
 
