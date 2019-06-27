@@ -10,7 +10,7 @@ class Merchant < ApplicationRecord
   end
 
   def self.most_revenue(limit = 1)
-    Merchant.joins('INNER JOIN items ON items.merchant_id = merchants.id INNER JOIN invoice_items ON invoice_items.item_id = items.id INNER JOIN invoices ON invoices.id = invoice_items.invoice_id INNER JOIN transactions ON transactions.invoice_id = invoices.id')
+    Merchant.joins(items: {invoice_items: {invoice: :transactions}})
         .where('transactions.result = ?', 'success')
         .group(:id)
         .select('SUM(invoice_items.quantity * invoice_items.unit_price) AS total_revenue, merchants.*')
