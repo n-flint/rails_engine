@@ -10,17 +10,17 @@ RSpec.describe 'Items API' do
 
     end
     it 'sends a single item' do
-      get "/api/v1/items/#{@item.id}.json"
+      get "/api/v1/items/#{@item1.id}.json"
 
       expect(response).to be_successful
 
       data = JSON.parse(response.body)
 
-      expect(data['data']['attributes']['id']).to eq(@item.id)
-      expect(data['data']['attributes']['name']).to eq(@item.name)
-      expect(data['data']['attributes']['description']).to eq(@item.description)
-      expect(data['data']['attributes']['description']).to eq(@item.description)
-      expect(data['data']['attributes']['unit_price']).to eq(@item.unit_price)
+      expect(data['data']['attributes']['id']).to eq(@item1.id)
+      expect(data['data']['attributes']['name']).to eq(@item1.name)
+      expect(data['data']['attributes']['description']).to eq(@item1.description)
+      expect(data['data']['attributes']['description']).to eq(@item1.description)
+      expect(data['data']['attributes']['unit_price']).to eq(@item1.unit_price)
     end
   end
 end
