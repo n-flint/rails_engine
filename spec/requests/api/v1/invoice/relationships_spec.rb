@@ -78,7 +78,15 @@ RSpec.describe 'Invoices API' do
       expect(data['data']['attributes']['first_name']).to eq(@customer1.first_name)
       expect(data['data']['attributes']['last_name']).to eq(@customer1.last_name)
     end
+
+    it 'can return an invoices merchant' do
+      get "/api/v1/invoices/#{@invoice3.id}/merchant"
+
+      data = JSON.parse(response.body)
+
+      expect(data['data']['attributes']['id']).to eq(@merchant1.id)
+      expect(data['data']['attributes']['name']).to eq(@merchant1.name)
+    end
   end
 end
-# GET /api/v1/invoices/:id/customer returns the associated customer
 # GET /api/v1/invoices/:id/merchant returns the associated merchant
