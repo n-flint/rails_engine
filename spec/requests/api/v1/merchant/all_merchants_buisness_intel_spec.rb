@@ -11,25 +11,19 @@ RSpec.describe 'Merchant Business Intelligence', type: :request do
 
       @invoice1 = Invoice.create(status: 'shipped', customer: @customer1, merchant: @merchant1)
       @invoice2 = Invoice.create(status: 'shipped', customer: @customer1, merchant: @merchant1)
-
       @invoice3 = Invoice.create(status: 'shipped', customer: @customer1, merchant: @merchant2)
       @invoice4 = Invoice.create(status: 'shipped', customer: @customer1, merchant: @merchant2)
-
       @invoice5 = Invoice.create(status: 'shipped', customer: @customer1, merchant: @merchant3)
       @invoice6 = Invoice.create(status: 'shipped', customer: @customer1, merchant: @merchant3)
-
       @invoice7 = Invoice.create(status: 'shipped', customer: @customer1, merchant: @merchant4)
       @invoice8 = Invoice.create(status: 'shipped', customer: @customer1, merchant: @merchant4)
 
       @item1 = Item.create(name: 'item 1', description: 'item 1 description', unit_price: 100, merchant: @merchant1)
       @item2 = Item.create(name: 'item 2', description: 'item 2 description', unit_price: 100, merchant: @merchant1)
-
       @item3 = Item.create(name: 'item 3', description: 'item 3 description', unit_price: 200, merchant: @merchant2)
       @item4 = Item.create(name: 'item 4', description: 'item 4 description', unit_price: 200, merchant: @merchant2)
-
       @item5 = Item.create(name: 'item 5', description: 'item 5 description', unit_price: 300, merchant: @merchant3)
       @item6 = Item.create(name: 'item 6', description: 'item 6 description', unit_price: 300, merchant: @merchant3)
-
       @item7 = Item.create(name: 'item 7', description: 'item 7 description', unit_price: 400, merchant: @merchant4)
       @item8 = Item.create(name: 'item 8', description: 'item 8 description', unit_price: 400, merchant: @merchant4)
 
@@ -42,17 +36,12 @@ RSpec.describe 'Merchant Business Intelligence', type: :request do
       @invoice_item7 = InvoiceItem.create(invoice: @invoice7, item: @item7, quantity: 7, unit_price: 7000)
       @invoice_item8 = InvoiceItem.create(invoice: @invoice8, item: @item8, quantity: 8, unit_price: 8000)
 
-
-
       @transaction1 = Transaction.create(invoice: @invoice1, credit_card_number: '12341234123412334', credit_card_expiration_date: '2019-05-12', result: 'success')
       @transaction2 = Transaction.create(invoice: @invoice2, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success')
-
       @transaction3 = Transaction.create(invoice: @invoice3, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success')
       @transaction4 = Transaction.create(invoice: @invoice4, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success', created_at: '2019-03-11 14:53:59 UTC')
-
       @transaction5 = Transaction.create(invoice: @invoice5, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success')
       @transaction6 = Transaction.create(invoice: @invoice6, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success')
-
       @transaction7 = Transaction.create(invoice: @invoice7, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success', created_at: '2019-03-11 14:53:59 UTC')
       @transaction8 = Transaction.create(invoice: @invoice8, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success')
     end

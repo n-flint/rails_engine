@@ -5,7 +5,7 @@ class Api::V1::Transactions::SearchController < ApplicationController
   end
 
   def index
-    render json: TransactionSerializer.new(Transaction.where(transaction_params))
+    render json: TransactionSerializer.new(Transaction.where(transaction_params).order(:id))
   end
   
   private
