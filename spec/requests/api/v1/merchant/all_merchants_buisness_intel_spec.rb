@@ -33,14 +33,14 @@ RSpec.describe 'Merchant Business Intelligence' do
       @item7 = Item.create(name: 'item 7', description: 'item 7 description', unit_price: 400, merchant: @merchant4)
       @item8 = Item.create(name: 'item 8', description: 'item 8 description', unit_price: 400, merchant: @merchant4)
 
-      @invoice_item1 = InvoiceItem.create(invoice: @invoice1, item: @item1, quantity: 1, unit_price: 100)
-      @invoice_item2 = InvoiceItem.create(invoice: @invoice2, item: @item2, quantity: 2, unit_price: 200)
-      @invoice_item3 = InvoiceItem.create(invoice: @invoice3, item: @item3, quantity: 3, unit_price: 300)
-      @invoice_item4 = InvoiceItem.create(invoice: @invoice4, item: @item4, quantity: 4, unit_price: 400)
-      @invoice_item5 = InvoiceItem.create(invoice: @invoice5, item: @item5, quantity: 5, unit_price: 500)
-      @invoice_item6 = InvoiceItem.create(invoice: @invoice6, item: @item6, quantity: 6, unit_price: 600)
-      @invoice_item7 = InvoiceItem.create(invoice: @invoice7, item: @item7, quantity: 7, unit_price: 700)
-      @invoice_item8 = InvoiceItem.create(invoice: @invoice8, item: @item8, quantity: 8, unit_price: 800)
+      @invoice_item1 = InvoiceItem.create(invoice: @invoice1, item: @item1, quantity: 10, unit_price: 100)
+      @invoice_item2 = InvoiceItem.create(invoice: @invoice2, item: @item2, quantity: 20, unit_price: 200)
+      @invoice_item3 = InvoiceItem.create(invoice: @invoice3, item: @item3, quantity: 30, unit_price: 300)
+      @invoice_item4 = InvoiceItem.create(invoice: @invoice4, item: @item4, quantity: 40, unit_price: 400)
+      @invoice_item5 = InvoiceItem.create(invoice: @invoice5, item: @item5, quantity: 5, unit_price: 5000)
+      @invoice_item6 = InvoiceItem.create(invoice: @invoice6, item: @item6, quantity: 6, unit_price: 6000)
+      @invoice_item7 = InvoiceItem.create(invoice: @invoice7, item: @item7, quantity: 7, unit_price: 7000)
+      @invoice_item8 = InvoiceItem.create(invoice: @invoice8, item: @item8, quantity: 8, unit_price: 8000)
 
 
 
@@ -70,6 +70,21 @@ RSpec.describe 'Merchant Business Intelligence' do
       expect(data['data'][0]['attributes']['name']).to eq(@merchant4.name)
       expect(data['data'][1]['attributes']['id']).to eq(@merchant3.id)
       expect(data['data'][1]['attributes']['name']).to eq(@merchant3.name)
+    end 
+
+    it 'merchants with the most items sold with limit params' do
+      limit = 2
+      get "/api/v1/merchants/most_items?quantity=#{limit}"
+
+      expect(response).to be_successful
+
+      data = JSON.parse(response.body)
+
+      expect(data['data'].count).to eq(2)
+      expect(data['data'][0]['attributes']['id']).to eq(@merchant2.id)
+      expect(data['data'][0]['attributes']['name']).to eq(@merchant2.name)
+      expect(data['data'][1]['attributes']['id']).to eq(@merchant1.id)
+      expect(data['data'][1]['attributes']['name']).to eq(@merchant1.name)
     end 
   end
 end
