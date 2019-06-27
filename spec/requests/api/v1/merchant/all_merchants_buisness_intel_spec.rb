@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Merchant Business Intelligence' do
+RSpec.describe 'Merchant Business Intelligence', type: :request do
   context 'all merchants' do
     before :each do
       @customer1 = Customer.create(first_name: 'Bill', last_name: 'Burr')
@@ -48,12 +48,12 @@ RSpec.describe 'Merchant Business Intelligence' do
       @transaction2 = Transaction.create(invoice: @invoice2, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success')
 
       @transaction3 = Transaction.create(invoice: @invoice3, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success')
-      @transaction4 = Transaction.create(invoice: @invoice4, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success')
+      @transaction4 = Transaction.create(invoice: @invoice4, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success', created_at: '2019-03-11 14:53:59 UTC')
 
       @transaction5 = Transaction.create(invoice: @invoice5, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success')
       @transaction6 = Transaction.create(invoice: @invoice6, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success')
 
-      @transaction7 = Transaction.create(invoice: @invoice7, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success')
+      @transaction7 = Transaction.create(invoice: @invoice7, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success', created_at: '2019-03-11 14:53:59 UTC')
       @transaction8 = Transaction.create(invoice: @invoice8, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success')
     end
 
@@ -85,6 +85,18 @@ RSpec.describe 'Merchant Business Intelligence' do
       expect(data['data'][0]['attributes']['name']).to eq(@merchant2.name)
       expect(data['data'][1]['attributes']['id']).to eq(@merchant1.id)
       expect(data['data'][1]['attributes']['name']).to eq(@merchant1.name)
+    end 
+
+    it 'total ammount sold for a date for all merchants' do
+      date = '2019-03-11 14:53:59 UTC'
+      
+      get "/api/v1/merchants/revenue?date=#{date}"
+      
+      expect(response).to be_successful
+
+      data = JSON.parse(response.body)
+
+      expect(data['data']["attributes"]['total_revenue']).to eq(65000)
     end 
   end
 end
