@@ -16,7 +16,7 @@ RSpec.describe 'Invoices API' do
 
       @invoice_item1 = InvoiceItem.create(invoice: @invoice1, item: @item1, quantity: 1, unit_price: 100)
       @invoice_item2 = InvoiceItem.create(invoice: @invoice2, item: @item2, quantity: 2, unit_price: 200)
-      @invoice_item3 = InvoiceItem.create(invoice: @invoice3, item: @item2, quantity: 3, unit_price: 300)
+      @invoice_item3 = InvoiceItem.create(invoice: @invoice2, item: @item2, quantity: 3, unit_price: 300)
 
       @transaction1 = Transaction.create(invoice: @invoice1, credit_card_number: '12341234123412334', credit_card_expiration_date: '2019-05-12', result: 'success')
       @transaction2 = Transaction.create(invoice: @invoice1, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success')
@@ -38,10 +38,26 @@ RSpec.describe 'Invoices API' do
       expect(data['data'][1]['attributes']['credit_card_expiration_date']).to eq('2019-04-11')
       expect(data['data'][1]['attributes']['result']).to eq(@transaction2.result)
     end
+
+    it 'can return an invoices invoice_items' do
+      get "/api/v1/invoices/#{@invoice2.id}/invoice_items"
+
+      data = JSON.parse(response.body)
+      # require 'pry'; binding.pry
+
+      expect(data['data'][0]['attributes']['id'].to_i).to eq(@invoice_item2.id)
+      expect(data['data'][0]['attributes']['quantity'].to_i).to eq(@invoice_item2.quantity)
+      expect(data['data'][0]['attributes']['unit_price'].to_i).to eq(@invoice_item2.unit_price)
+    
+
+      expect(data['data'][1]['attributes']['id'].to_i).to eq(@invoice_item3.id)
+      expect(data['data'][1]['attributes']['quantity'].to_i).to eq(@invoice_item3.quantity)
+      expect(data['data'][1]['attributes']['unit_price'].to_i).to eq(@invoice_item3.unit_price)
+  
+    end
   end
 end
 
-# GET /api/v1/invoices/:id/transactions returns a collection of associated transactions
 # GET /api/v1/invoices/:id/invoice_items returns a collection of associated invoice items
 # GET /api/v1/invoices/:id/items returns a collection of associated items
 # GET /api/v1/invoices/:id/customer returns the associated customer
