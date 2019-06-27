@@ -34,5 +34,14 @@ RSpec.describe 'Items API' do
       expect(data['data'][1]['attributes']['quantity']).to eq(@invoice_item3.quantity)
       expect(data['data'][1]['attributes']['unit_price']).to eq(@invoice_item3.unit_price)
     end
+
+    it 'can return an items merchant' do
+      get "/api/v1/items/#{@item2.id}/merchant"
+
+      data = JSON.parse(response.body)
+
+      expect(data['data']['attributes']['id']).to eq(@merchant1.id)
+      expect(data['data']['attributes']['name']).to eq(@merchant1.name)
+    end
   end
 end
