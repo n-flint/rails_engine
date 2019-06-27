@@ -50,5 +50,33 @@ RSpec.describe 'Items API' do
       expect(data['data'][0]['attributes']['description']).to eq(@item2.description)
       expect(data['data'][0]['attributes']['unit_price']).to eq(@item2.unit_price)
     end
+    
+    it 'finds a single item by description' do
+      get "/api/v1/items/find?description=#{@item1.description}"
+
+      expect(response).to be_successful
+
+      data = JSON.parse(response.body)
+
+      expect(data['data'][0]['attributes']['id']).to eq(@item1.id)
+      expect(data['data'][0]['attributes']['name']).to eq(@item1.name)
+      expect(data['data'][0]['attributes']['description']).to eq(@item1.description)
+      expect(data['data'][0]['attributes']['description']).to eq(@item1.description)
+      expect(data['data'][0]['attributes']['unit_price']).to eq(@item1.unit_price)
+    end
+
+    it 'finds a single item by unit price' do
+      get "/api/v1/items/find?unit_price=#{@item1.unit_price}"
+
+      expect(response).to be_successful
+
+      data = JSON.parse(response.body)
+
+      expect(data['data'][0]['attributes']['id']).to eq(@item1.id)
+      expect(data['data'][0]['attributes']['name']).to eq(@item1.name)
+      expect(data['data'][0]['attributes']['description']).to eq(@item1.description)
+      expect(data['data'][0]['attributes']['description']).to eq(@item1.description)
+      expect(data['data'][0]['attributes']['unit_price']).to eq(@item1.unit_price)
+    end
   end
 end
