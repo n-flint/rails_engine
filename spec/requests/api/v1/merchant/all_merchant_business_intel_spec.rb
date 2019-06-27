@@ -48,14 +48,14 @@ RSpec.describe 'Merchant Business Intelligence' do
       @transaction8 = Transaction.create(invoice: @invoice8, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success')
     end
 
-    it 'merchants with the most revenue with limit params' do
+    xit 'merchants with the most revenue with limit params' do
       limit = 2
       get "/api/v1/merchants/most_revenue?quantity=#{limit}"
 
       expect(response.status).to be_successful
 
       data = JSON.parse(response.body)
-
+      require 'pry'; binding.pry
       expect(data['data'].count).to eq(2)
       expect(data['data'][0]['id']).to eq(@merchant4.id)
       expect(data['data'][0]['name']).to eq(@merchant4.name)
