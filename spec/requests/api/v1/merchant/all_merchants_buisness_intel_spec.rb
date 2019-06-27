@@ -4,7 +4,6 @@ RSpec.describe 'Merchant Business Intelligence' do
   context 'all merchants' do
     before :each do
       @customer1 = Customer.create(first_name: 'Bill', last_name: 'Burr')
-
       @merchant1 = Merchant.create(name: 'Afroman') 
       @merchant2 = Merchant.create(name: 'Superman') 
       @merchant3 = Merchant.create(name: 'Biggie') 
