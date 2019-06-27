@@ -17,4 +17,13 @@ class Merchant < ApplicationRecord
         .order('total_revenue DESC')
         .limit(limit)
   end
+
+  def self.most_items(limit = 1)
+    Merchant.joins(items: {invoice_items: {invoice: :transactions}})
+        .where('transactions.result = ?', 'success')
+        .group(:id)
+        .select('SUM(invoice_items.quantity) AS total_sold, merchants.*')
+        .order('total_sold DESC')
+        .limit(limit)
+  end
 end
