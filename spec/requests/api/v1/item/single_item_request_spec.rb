@@ -78,5 +78,17 @@ RSpec.describe 'Items API' do
       expect(data['data'][0]['attributes']['description']).to eq(@item1.description)
       expect(data['data'][0]['attributes']['unit_price']).to eq(@item1.unit_price)
     end
+
+    it 'finds a random item' do
+      get '/api/v1/items/random'
+
+      expect(response).to be_successful
+
+      data = JSON.parse(response.body)
+
+      expect(data['data']['attributes']).to have_key('name')
+      expect(data['data']['attributes']).to have_key('description')
+      expect(data['data']['attributes']).to have_key('unit_price')
+    end
   end
 end
