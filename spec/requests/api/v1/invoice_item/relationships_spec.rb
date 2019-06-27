@@ -27,7 +27,16 @@ RSpec.describe 'Customers API' do
       expect(data['data']['attributes']['id']).to eq(@invoice1.id)
       expect(data['data']['attributes']['status']).to eq(@invoice1.status)
     end
+
+    it 'can return an invoice_items item' do
+      get "/api/v1/invoice_items/#{@invoice_item3.id}/item"
+
+      data = JSON.parse(response.body)
+
+      expect(data['data']['attributes']['id']).to eq(@item2.id)
+      expect(data['data']['attributes']['name']).to eq(@item2.name)
+      expect(data['data']['attributes']['description']).to eq(@item2.description)
+      expect(data['data']['attributes']['unit_price']).to eq(@item2.unit_price)
+    end
   end
 end
-# GET /api/v1/invoice_items/:id/invoice returns the associated invoice
-# GET /api/v1/invoice_items/:id/item returns the associated item
