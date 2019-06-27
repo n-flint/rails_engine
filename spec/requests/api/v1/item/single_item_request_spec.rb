@@ -29,7 +29,21 @@ RSpec.describe 'Items API' do
       expect(response).to be_successful
 
       data = JSON.parse(response.body)
-      # require 'pry'; binding.pry
+      
+      expect(data['data'][0]['attributes']['id']).to eq(@item2.id)
+      expect(data['data'][0]['attributes']['name']).to eq(@item2.name)
+      expect(data['data'][0]['attributes']['description']).to eq(@item2.description)
+      expect(data['data'][0]['attributes']['description']).to eq(@item2.description)
+      expect(data['data'][0]['attributes']['unit_price']).to eq(@item2.unit_price)
+    end
+
+    it 'finds a single item by name' do
+      get "/api/v1/items/find?name=#{@item2.name}"
+
+      expect(response).to be_successful
+
+      data = JSON.parse(response.body)
+
       expect(data['data'][0]['attributes']['id']).to eq(@item2.id)
       expect(data['data'][0]['attributes']['name']).to eq(@item2.name)
       expect(data['data'][0]['attributes']['description']).to eq(@item2.description)
