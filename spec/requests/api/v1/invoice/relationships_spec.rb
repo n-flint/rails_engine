@@ -89,4 +89,3 @@ RSpec.describe 'Invoices API' do
     end
   end
 end
-# GET /api/v1/invoices/:id/merchant returns the associated merchant
