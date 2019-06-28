@@ -27,16 +27,14 @@ RSpec.describe 'Customer Business Intelligence', type: :request do
     @transaction4 = Transaction.create(invoice: @invoice4, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success', created_at: '2019-03-11 14:53:59 UTC')  
   end
 
-  it 'returns a customers favorit merchant' do
-    get "/api/v1/customers/#{@customer_1.id}/favorite_merchant"
+  xit 'returns a customers favorit merchant' do
+    get "/api/v1/customers/#{@customer1.id}/favorite_merchant"
 
     expect(response).to be_successful
 
     data = JSON.parse(response.body)
-
+    require 'pry'; binding.pry
     expect(data['data']['attributes']['id']).to eq(@merchant2.id)
     expect(data['data']['attributes']['name']).to eq(@merchant2.name)
   end
 end
-
-# GET /api/v1/customers/:id/favorite_merchant returns a merchant where the customer has conducted the most successful transactions
