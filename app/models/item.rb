@@ -11,4 +11,14 @@ class Item < ApplicationRecord
     random_id = pluck(:id).sample
     Item.find(random_id)
   end
+
+  def self.most_revenue(limit = 1)
+    self.joins(:invoice_items)
+        .select('SUM(invoice_items.quantity * invoice_items.unit_price) AS total_revenue, items.*')
+        .group(:id)
+        .order('total_revenue DESC')
+        .limit(limit)
+  end
+
+
 end
