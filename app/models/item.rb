@@ -19,4 +19,11 @@ class Item < ApplicationRecord
         .order('total_revenue DESC')
         .limit(limit)
   end
+  
+  def self.most_items(limit = 1)
+    self.joins(:invoice_items)
+        .select('SUM(invoice_items.quantity) AS total_sold, items.*')
+        .group(:id)
+        .order('total_sold DESC')
+  end
 end
