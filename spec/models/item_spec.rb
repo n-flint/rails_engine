@@ -15,19 +15,7 @@ RSpec.describe Item, type: :model do
   end
 
   describe 'class methods' do
-    it '.random' do
-      merchant1 = Merchant.create(name: 'Trevor')
-
-      item1 = Item.create(name: 'item 1', description: 'item 1 description', unit_price: 10000, merchant: merchant1)
-      item2 = Item.create(name: 'item 2', description: 'item 2 description', unit_price: 10000, merchant: merchant1)
-      item3 = Item.create(name: 'item 3', description: 'item 3 description', unit_price: 10000, merchant: merchant1)
-      
-      random_item = Item.random
-      expect(random_item.class).to eq(Item)
-    end
-
-    it '.most_revenue' do
-      limit = 2
+    before :each do
       @customer1 = Customer.create(first_name: 'Bill', last_name: 'Burr')
       @merchant1 = Merchant.create(name: 'Afroman') 
       @merchant2 = Merchant.create(name: 'Superman') 
@@ -55,6 +43,10 @@ RSpec.describe Item, type: :model do
       @transaction3 = Transaction.create(invoice: @invoice3, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success')
       @transaction4 = Transaction.create(invoice: @invoice4, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success', created_at: '2019-03-11 14:53:59 UTC')
       @transaction5 = Transaction.create(invoice: @invoice5, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success', created_at: '2019-03-11 14:53:59 UTC')
+    end
+
+    it '.most_revenue' do
+      limit = 2
 
       top_items = Item.most_revenue(limit)
 
@@ -63,6 +55,17 @@ RSpec.describe Item, type: :model do
       expect(top_items[0].description).to eq(@item5.description)
       expect(top_items[0].unit_price).to eq(@item5.unit_price)
       expect(top_items[1].id).to eq(@item4.id)
+    end
+
+    it '.random' do
+      merchant1 = Merchant.create(name: 'Trevor')
+
+      item1 = Item.create(name: 'item 1', description: 'item 1 description', unit_price: 10000, merchant: merchant1)
+      item2 = Item.create(name: 'item 2', description: 'item 2 description', unit_price: 10000, merchant: merchant1)
+      item3 = Item.create(name: 'item 3', description: 'item 3 description', unit_price: 10000, merchant: merchant1)
+      
+      random_item = Item.random
+      expect(random_item.class).to eq(Item)
     end
   end
 end
