@@ -25,24 +25,28 @@ RSpec.describe Item, type: :model do
       @invoice3 = Invoice.create(status: 'shipped', customer: @customer1, merchant: @merchant2)
       @invoice4 = Invoice.create(status: 'shipped', customer: @customer1, merchant: @merchant2)
       @invoice5 = Invoice.create(status: 'shipped', customer: @customer1, merchant: @merchant1)
+      @invoice6 = Invoice.create(status: 'shipped', customer: @customer1, merchant: @merchant1)
 
       @item1 = Item.create(name: 'item 1', description: 'item 1 description', unit_price: 100, merchant: @merchant1)
       @item2 = Item.create(name: 'item 2', description: 'item 2 description', unit_price: 100, merchant: @merchant1)
       @item3 = Item.create(name: 'item 3', description: 'item 3 description', unit_price: 200, merchant: @merchant2)
       @item4 = Item.create(name: 'item 4', description: 'item 4 description', unit_price: 200, merchant: @merchant2)
       @item5 = Item.create(name: 'item 5', description: 'item 5 description', unit_price: 200, merchant: @merchant1)
+      @item6 = Item.create(name: 'item 5', description: 'item 5 description', unit_price: 1, merchant: @merchant1)
 
       @invoice_item1 = InvoiceItem.create(invoice: @invoice1, item: @item1, quantity: 10, unit_price: 100)
       @invoice_item2 = InvoiceItem.create(invoice: @invoice2, item: @item2, quantity: 20, unit_price: 200)
       @invoice_item3 = InvoiceItem.create(invoice: @invoice3, item: @item3, quantity: 30, unit_price: 300)
       @invoice_item4 = InvoiceItem.create(invoice: @invoice4, item: @item4, quantity: 40, unit_price: 400)
       @invoice_item5 = InvoiceItem.create(invoice: @invoice5, item: @item5, quantity: 50, unit_price: 500)
+      @invoice_item6 = InvoiceItem.create(invoice: @invoice6, item: @item6, quantity: 100, unit_price: 1)
 
       @transaction1 = Transaction.create(invoice: @invoice1, credit_card_number: '12341234123412334', credit_card_expiration_date: '2019-05-12', result: 'success')
       @transaction2 = Transaction.create(invoice: @invoice2, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success')
       @transaction3 = Transaction.create(invoice: @invoice3, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success')
       @transaction4 = Transaction.create(invoice: @invoice4, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success', created_at: '2019-03-11 14:53:59 UTC')
       @transaction5 = Transaction.create(invoice: @invoice5, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success', created_at: '2019-03-11 14:53:59 UTC')
+      @transaction6 = Transaction.create(invoice: @invoice6, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success', created_at: '2019-03-11 14:53:59 UTC')
     end
 
     it '.most_revenue' do
@@ -55,6 +59,18 @@ RSpec.describe Item, type: :model do
       expect(top_items[0].description).to eq(@item5.description)
       expect(top_items[0].unit_price).to eq(@item5.unit_price)
       expect(top_items[1].id).to eq(@item4.id)
+    end
+
+    it '.most_items' do
+      limit = 2
+
+      items = Item.most_items(limit)
+
+      expect(items[0].id).to eq(@item6.id)
+      expect(items[0].name).to eq(@item6.name)
+      expect(items[0].description).to eq(@item6.description)
+      expect(items[0].unit_price).to eq(@item6.unit_price)
+      expect(items[1].id).to eq(@item5.id)
     end
 
     it '.random' do
