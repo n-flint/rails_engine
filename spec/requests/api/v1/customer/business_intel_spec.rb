@@ -1,19 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe Customer, type: :model do
-  describe 'relationships' do
-    it {should have_many :invoices}
-    it {should have_many(:transactions).through(:invoices)}
-
-  end
-
-  describe 'validations' do
-    it {should validate_presence_of :first_name}
-    it {should validate_presence_of :last_name}
-  end
-
-  describe 'instance methods' do
-    it '#favorite_merchant' do
+RSpec.describe 'Customer Business Intelligence', type: :request do
+  before :each do
     @customer1 = Customer.create(first_name: 'Bill', last_name: 'Burr')
     @merchant1 = Merchant.create(name: 'Afroman') 
     @merchant2 = Merchant.create(name: 'Superman') 
@@ -40,9 +28,17 @@ RSpec.describe Customer, type: :model do
     @transaction2 = Transaction.create(invoice: @invoice2, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success')
     @transaction3 = Transaction.create(invoice: @invoice3, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success')
     @transaction4 = Transaction.create(invoice: @invoice4, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success', created_at: '2019-03-11 14:53:59 UTC')
-    @transaction5 = Transaction.create(invoice: @invoice5, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success', created_at: '2019-03-11 14:53:59 UTC')
-    
-    expect(@customer1.favorite_merchant).to eq(@merchant1)
-    end
+    @transaction5 = Transaction.create(invoice: @invoice5, credit_card_number: '00000000000000000', credit_card_expiration_date: '2019-04-11', result: 'success', created_at: '2019-03-11 14:53:59 UTC') 
+  end
+
+  it 'returns a customers favorit merchant' do
+    get "/api/v1/customers/#{@customer1.id}/favorite_merchant"
+
+    expect(response).to be_successful
+
+    data = JSON.parse(response.body)
+
+    expect(data['data']['attributes']['id']).to eq(@merchant1.id)
+    expect(data['data']['attributes']['name']).to eq(@merchant1.name)
   end
 end
