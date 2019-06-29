@@ -37,7 +37,7 @@ RSpec.describe 'Customer Business Intelligence', type: :request do
     expect(response).to be_successful
 
     data = JSON.parse(response.body)
-    require 'pry'; binding.pry
+
     expect(data['data']['attributes']['id']).to eq(@merchant1.id)
     expect(data['data']['attributes']['name']).to eq(@merchant1.name)
   end
