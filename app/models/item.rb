@@ -25,5 +25,6 @@ class Item < ApplicationRecord
         .select('SUM(invoice_items.quantity) AS total_sold, items.*')
         .group(:id)
         .order('total_sold DESC')
+        .limit(limit)
   end
 end
