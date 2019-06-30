@@ -44,12 +44,10 @@ RSpec.describe 'Customers API' do
       expect(data['data'].count).to eq(2)
       expect(data['data'][0]['id'].to_i).to eq(@transaction1.id)
       expect(data['data'][0]['attributes']['credit_card_number']).to eq(@transaction1.credit_card_number)
-      expect(data['data'][0]['attributes']['credit_card_expiration_date']).to eq('2019-05-12')
       expect(data['data'][0]['attributes']['result']).to eq(@transaction1.result)
 
       expect(data['data'][1]['id'].to_i).to eq(@transaction2.id)
       expect(data['data'][1]['attributes']['credit_card_number']).to eq(@transaction2.credit_card_number)
-      expect(data['data'][1]['attributes']['credit_card_expiration_date']).to eq('2019-05-12')
       expect(data['data'][1]['attributes']['result']).to eq(@transaction2.result)
     end
   end
