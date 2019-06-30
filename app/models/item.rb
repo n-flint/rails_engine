@@ -7,6 +7,9 @@ class Item < ApplicationRecord
   has_many :invoices, through: :invoice_items
   belongs_to :merchant
 
+  default_scope { order('items.id ASC') }
+  # default_scope { order(:id)}
+
   def self.random
     random_id = pluck(:id).sample
     Item.find(random_id)
