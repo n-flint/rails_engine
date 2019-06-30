@@ -9,9 +9,11 @@ RSpec.describe 'Merchants API' do
 
       @invoice1 = Invoice.create(status: 'shipped', customer: @customer1, merchant: @merchant1)
       @invoice2 = Invoice.create(status: 'shipped', customer: @customer1, merchant: @merchant1)
+      @invoice3 = Invoice.create(status: 'shipped', customer: @customer1, merchant: @merchant2)
 
       @item1 = Item.create(name: 'item 1', description:'item 1 description', unit_price: '10000')
       @item2 = Item.create(name: 'item 2', description:'item 2 description', unit_price: '20000')
+      @item3 = Item.create(name: 'item 3', description:'item 3 description', unit_price: '30000')
 
       @merchant1.items << [@item1, @item2]
     end
@@ -24,7 +26,7 @@ RSpec.describe 'Merchants API' do
       data = JSON.parse(response.body)
 
       expect(data['data'].count).to eq(2)
-      expect(data['data'][0]['id'].to_i).to eq(@item1.id)
+      expect(data['data'][0]['attributes']['id'].to_i).to eq(@item1.id)
       expect(data['data'][0]['attributes']['name']).to eq(@item1.name)
       expect(data['data'][0]['attributes']['description']).to eq(@item1.description)
       expect(data['data'][0]['attributes']['unit_price']).to eq(@item1.unit_price)
@@ -39,11 +41,10 @@ RSpec.describe 'Merchants API' do
       data = JSON.parse(response.body)
 
       expect(data['data'].count).to eq(2)
-      expect(data['data'][0]['id'].to_i).to eq(@invoice1.id)
+      expect(data['data'][0]['attributes']['id'].to_i).to eq(@invoice1.id)
       expect(data['data'][0]['attributes']['status']).to eq(@invoice1.status)
-      expect(data['data'][1]['id'].to_i).to eq(@invoice2.id)
+      expect(data['data'][1]['attributes']['id'].to_i).to eq(@invoice2.id)
       expect(data['data'][1]['attributes']['status']).to eq(@invoice2.status)
     end
-
   end
 end
