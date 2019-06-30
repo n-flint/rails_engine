@@ -7,7 +7,6 @@ RSpec.describe 'Items API' do
       @merchant2 = Merchant.create(name: 'Bill')
       @item1 = Item.create(name: 'item 1', description: 'item 1 description', unit_price: 10000, merchant: @merchant1)
       @item2 = Item.create(name: 'item 2', description: 'item 2 description', unit_price: 20000, merchant: @merchant2)
-
     end
     it 'sends a single item' do
       get "/api/v1/items/#{@item1.id}.json"
