@@ -8,4 +8,5 @@ class Invoice < ApplicationRecord
   belongs_to :customer
   belongs_to :merchant
 
+  default_scope { order('invoices.id ASC')}
 end
