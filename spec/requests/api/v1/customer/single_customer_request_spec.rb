@@ -27,9 +27,9 @@ RSpec.describe 'Customers API' do
 
       data = JSON.parse(response.body)
 
-      expect(data['data'][0]['attributes']['id']).to eq(@customer1.id)
-      expect(data['data'][0]['attributes']['first_name']).to eq(@customer1.first_name)
-      expect(data['data'][0]['attributes']['last_name']).to eq(@customer1.last_name)
+      expect(data['data']['attributes']['id']).to eq(@customer1.id)
+      expect(data['data']['attributes']['first_name']).to eq(@customer1.first_name)
+      expect(data['data']['attributes']['last_name']).to eq(@customer1.last_name)
     end
 
     it 'finds a single customer by first name' do
@@ -39,9 +39,9 @@ RSpec.describe 'Customers API' do
 
       data = JSON.parse(response.body)
 
-      expect(data['data'][0]['attributes']['id']).to eq(@customer2.id)
-      expect(data['data'][0]['attributes']['first_name']).to eq(@customer2.first_name)
-      expect(data['data'][0]['attributes']['last_name']).to eq(@customer2.last_name)
+      expect(data['data']['attributes']['id']).to eq(@customer2.id)
+      expect(data['data']['attributes']['first_name']).to eq(@customer2.first_name)
+      expect(data['data']['attributes']['last_name']).to eq(@customer2.last_name)
     end
 
     it 'finds a single customer by last name' do
@@ -51,9 +51,9 @@ RSpec.describe 'Customers API' do
 
       data = JSON.parse(response.body)
 
-      expect(data['data'][0]['attributes']['id']).to eq(@customer3.id)
-      expect(data['data'][0]['attributes']['first_name']).to eq(@customer3.first_name)
-      expect(data['data'][0]['attributes']['last_name']).to eq(@customer3.last_name)
+      expect(data['data']['attributes']['id']).to eq(@customer3.id)
+      expect(data['data']['attributes']['first_name']).to eq(@customer3.first_name)
+      expect(data['data']['attributes']['last_name']).to eq(@customer3.last_name)
     end
 
     it 'finds a single customer by created_at' do
@@ -63,9 +63,9 @@ RSpec.describe 'Customers API' do
 
       data = JSON.parse(response.body)
 
-      expect(data['data'][0]['attributes']['id']).to eq(@customer3.id)
-      expect(data['data'][0]['attributes']['first_name']).to eq(@customer3.first_name)
-      expect(data['data'][0]['attributes']['last_name']).to eq(@customer3.last_name)
+      expect(data['data']['attributes']['id']).to eq(@customer3.id)
+      expect(data['data']['attributes']['first_name']).to eq(@customer3.first_name)
+      expect(data['data']['attributes']['last_name']).to eq(@customer3.last_name)
     end
 
     it 'finds a single customer by updated_at' do
@@ -75,9 +75,9 @@ RSpec.describe 'Customers API' do
 
       data = JSON.parse(response.body)
 
-      expect(data['data'][0]['attributes']['id']).to eq(@customer4.id)
-      expect(data['data'][0]['attributes']['first_name']).to eq(@customer4.first_name)
-      expect(data['data'][0]['attributes']['last_name']).to eq(@customer4.last_name)
+      expect(data['data']['attributes']['id']).to eq(@customer4.id)
+      expect(data['data']['attributes']['first_name']).to eq(@customer4.first_name)
+      expect(data['data']['attributes']['last_name']).to eq(@customer4.last_name)
     end
 
     it 'finds a random customer' do

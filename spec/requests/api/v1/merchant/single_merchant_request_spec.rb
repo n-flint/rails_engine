@@ -28,8 +28,8 @@ RSpec.describe 'Merchants API' do
 
       data = JSON.parse(response.body)
       
-      expect(data['data'][0]['attributes']['name']).to eq(@merchant1.name)
-      expect(data['data'][0]['attributes']['id']).to eq(@merchant1.id)
+      expect(data['data']['attributes']['name']).to eq(@merchant1.name)
+      expect(data['data']['attributes']['id']).to eq(@merchant1.id)
     end
 
     it 'finds a single merchant by name' do
@@ -39,8 +39,8 @@ RSpec.describe 'Merchants API' do
 
       data = JSON.parse(response.body)
 
-      expect(data['data'][0]['attributes']['name']).to eq(@merchant4.name)
-      expect(data['data'][0]['attributes']['id']).to eq(@merchant4.id)
+      expect(data['data']['attributes']['name']).to eq(@merchant4.name)
+      expect(data['data']['attributes']['id']).to eq(@merchant4.id)
     end
 
     it 'finds a single merchant by created_at' do
@@ -50,8 +50,8 @@ RSpec.describe 'Merchants API' do
 
       data = JSON.parse(response.body)
 
-      expect(data['data'][0]['attributes']['name']).to eq(@merchant2.name)
-      expect(data['data'][0]['attributes']['id']).to eq(@merchant2.id)
+      expect(data['data']['attributes']['name']).to eq(@merchant2.name)
+      expect(data['data']['attributes']['id']).to eq(@merchant2.id)
     end
 
     it 'finds a single merchant by updated_at' do
@@ -61,8 +61,8 @@ RSpec.describe 'Merchants API' do
 
       data = JSON.parse(response.body)
 
-      expect(data['data'][0]['attributes']['name']).to eq(@merchant3.name)
-      expect(data['data'][0]['attributes']['id']).to eq(@merchant3.id)
+      expect(data['data']['attributes']['name']).to eq(@merchant3.name)
+      expect(data['data']['attributes']['id']).to eq(@merchant3.id)
     end
 
     it 'finds a random merchant' do
