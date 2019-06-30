@@ -24,7 +24,7 @@ RSpec.describe 'Invoices API' do
     end
     
     it 'can return an invoices transactions' do
-      get "/api/v1/invoices/#{@invoice1.id}/transaction"
+      get "/api/v1/invoices/#{@invoice1.id}/transactions"
 
       data = JSON.parse(response.body)
 
