@@ -9,6 +9,7 @@ RSpec.describe 'Merchants API' do
 
       @invoice1 = Invoice.create(status: 'shipped', customer: @customer1, merchant: @merchant1)
       @invoice2 = Invoice.create(status: 'shipped', customer: @customer1, merchant: @merchant1)
+      @invoice3 = Invoice.create(status: 'shipped', customer: @customer1, merchant: @merchant2)
 
       @item1 = Item.create(name: 'item 1', description:'item 1 description', unit_price: '10000')
       @item2 = Item.create(name: 'item 2', description:'item 2 description', unit_price: '20000')
@@ -37,11 +38,11 @@ RSpec.describe 'Merchants API' do
       expect(response).to be_successful
 
       data = JSON.parse(response.body)
-
+      # require 'pry'; binding.pry
       expect(data['data'].count).to eq(2)
-      expect(data['data'][0]['id'].to_i).to eq(@invoice1.id)
+      expect(data['data'][0]['attributes']['id'].to_i).to eq(@invoice1.id)
       expect(data['data'][0]['attributes']['status']).to eq(@invoice1.status)
-      expect(data['data'][1]['id'].to_i).to eq(@invoice2.id)
+      expect(data['data'][1]['attributes']['id'].to_i).to eq(@invoice2.id)
       expect(data['data'][1]['attributes']['status']).to eq(@invoice2.status)
     end
 

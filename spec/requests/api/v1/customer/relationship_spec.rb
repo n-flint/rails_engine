@@ -26,7 +26,7 @@ RSpec.describe 'Customers API' do
       expect(response).to be_successful
 
       data = JSON.parse(response.body)
-
+      
       expect(data['data'].count).to eq(2)
       expect(data['data'][0]['id'].to_i).to eq(@invoice1.id)
       expect(data['data'][0]['attributes']['status']).to eq(@invoice1.status)
