@@ -36,7 +36,6 @@ RSpec.describe 'Customers API' do
       expect(data['data']['attributes']['id']).to eq(@item2.id)
       expect(data['data']['attributes']['name']).to eq(@item2.name)
       expect(data['data']['attributes']['description']).to eq(@item2.description)
-      expect(data['data']['attributes']['unit_price']).to eq(@item2.unit_price)
     end
   end
 end

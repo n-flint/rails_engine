@@ -29,7 +29,6 @@ RSpec.describe 'Merchants API' do
       expect(data['data'][0]['attributes']['id'].to_i).to eq(@item1.id)
       expect(data['data'][0]['attributes']['name']).to eq(@item1.name)
       expect(data['data'][0]['attributes']['description']).to eq(@item1.description)
-      expect(data['data'][0]['attributes']['unit_price']).to eq(@item1.unit_price)
       expect(data['data'][1]['attributes']['name']).to eq(@item2.name)
     end
 
