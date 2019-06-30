@@ -36,7 +36,6 @@ RSpec.describe 'Transactions Api' do
 
       expect(data['data'][0]['attributes']['id']).to eq(@transaction1.id)
       expect(data['data'][0]['attributes']['credit_card_number']).to eq(@transaction1.credit_card_number)
-      expect(data['data'][0]['attributes']['credit_card_expiration_date']).to eq('2019-04-12')
     end
 
     it 'can find multiple transactions by credit card number' do
@@ -48,11 +47,9 @@ RSpec.describe 'Transactions Api' do
 
       expect(data['data'][0]['attributes']['id']).to eq(@transaction1.id)
       expect(data['data'][0]['attributes']['credit_card_number']).to eq(@transaction1.credit_card_number)
-      expect(data['data'][0]['attributes']['credit_card_expiration_date']).to eq('2019-04-12')
 
       expect(data['data'][1]['attributes']['id']).to eq(@transaction3.id)
       expect(data['data'][1]['attributes']['credit_card_number']).to eq(@transaction3.credit_card_number)
-      expect(data['data'][1]['attributes']['credit_card_expiration_date']).to eq('2019-04-10')
     end
 
     it 'can find multiple transactions by credit card number' do
@@ -64,11 +61,9 @@ RSpec.describe 'Transactions Api' do
 
       expect(data['data'][0]['attributes']['id']).to eq(@transaction3.id)
       expect(data['data'][0]['attributes']['credit_card_number']).to eq(@transaction3.credit_card_number)
-      expect(data['data'][0]['attributes']['credit_card_expiration_date']).to eq('2019-04-10')
 
       expect(data['data'][1]['attributes']['id']).to eq(@transaction4.id)
       expect(data['data'][1]['attributes']['credit_card_number']).to eq(@transaction4.credit_card_number)
-      expect(data['data'][1]['attributes']['credit_card_expiration_date']).to eq('2019-04-10')
     end
 
     it 'can find multiple transactions by status' do
@@ -80,11 +75,9 @@ RSpec.describe 'Transactions Api' do
 
       expect(data['data'][0]['attributes']['id']).to eq(@transaction2.id)
       expect(data['data'][0]['attributes']['credit_card_number']).to eq(@transaction2.credit_card_number)
-      expect(data['data'][0]['attributes']['credit_card_expiration_date']).to eq('2019-04-11')
 
       expect(data['data'][1]['attributes']['id']).to eq(@transaction3.id)
       expect(data['data'][1]['attributes']['credit_card_number']).to eq(@transaction3.credit_card_number)
-      expect(data['data'][1]['attributes']['credit_card_expiration_date']).to eq('2019-04-10')
     end
   end
 end
