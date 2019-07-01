@@ -176,8 +176,5 @@ Invoice_items:
 - Invoice
 - Item
 
-##### Business Intelligence
-
-Lastly, the application provides a series of business intelligence endpoints for accessing relevant information regarding the resources present within the system.
 
 
